@@ -62,7 +62,8 @@ navigate('/sign-in')
   };
 
   return (
-    <div className="w-5/5 mx-auto sm:w-2/4 p-10">
+    <div className="w-5/5 mx-auto sm:w-2/4 p-10"> 
+    {/* <h1>Omar Ashraf  .................</h1> */}
       <h2 className="text-center font-semibold mb-3 text-2xl text-slate-800">
         Sign Up
       </h2>
