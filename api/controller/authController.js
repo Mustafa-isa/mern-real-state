@@ -1,7 +1,7 @@
 const User = require("../modales/userModale.js");
 const bcrypt = require("bcrypt");
 const errorHandler = require('../utilities/error')
-async function auth(req, res ,next) {
+async function authContrllerRegister(req, res ,next) {
   try {
     const { username, email, password } = req.body;
 
@@ -25,10 +25,10 @@ async function auth(req, res ,next) {
 
     // Send success response
     user.save();
-    res.status(201).json({ message: "User created successfully." ,userInfo:user});
+    res.status(201).json({success:true , message: "User created successfully." ,userInfo:user});
   } catch (error) {
     next(errorHandler(500 ,error.message))
   }
 }
 
-module.exports = auth;
+module.exports = authContrllerRegister;

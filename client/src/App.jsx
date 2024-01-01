@@ -3,7 +3,7 @@ import Home from "./pages/Home"
 import About from  './pages/About' 
 import Profile from './pages/Profile' 
 import SingIn from './pages/SignIn'
-import SignOut from './pages/SignOut'
+import Signup from './pages/Signup'
 import Header from './components//Header'
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
     <Route path="about" element={<About/>} />
     <Route path="/profile" element={<Profile />} />
     <Route path="sign-in" element={<SingIn />} />
-    <Route path="sign-out" element={<SignOut />} />
+    <Route path="sign-up" element={<Signup/>} />
   </Routes>
   </BrowserRouter>
   )

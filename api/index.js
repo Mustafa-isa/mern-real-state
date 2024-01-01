@@ -1,12 +1,16 @@
 const express = require('express') 
 const app =express()
 require("dotenv").config() 
-app.use(express.json())
+app.use(express.json()) 
+const cors = require('cors');
 const userRoute =require("./routes/userRoute")
 const authRoute =require("./routes/authRoute")
-const mongoose = require('mongoose')
-app.use('/api/user',userRoute )
-app.use('/api/user',authRoute ) 
+const mongoose = require('mongoose') 
+app.use(cors())
+// app.use('/api/auth',(req,res) =>{
+//   res.status(200).json({ message: 'Data received successfully.' });
+// } )
+app.use('/api/auth',authRoute ) 
 // handle error 
 app.use((error ,req,res,next)=>{
   let statusCode = error.statusCode || 500 
