@@ -1,22 +1,29 @@
 import { useEffect ,useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Input from "../components/Input";
+import Input from "../components/Input"; 
+import axios from 'axios'  
+import { signInStart ,signInSuccess ,signInFail } from "../redux/user/UserSlice"; 
+import { useDispatch ,useSelector } from "react-redux";
+// import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-function SignIn() {
-  useEffect(() => {
-    toast.success( <h3> Welcome <span className=" font-serif">Back</span> <span className=" font-semibold text-indigo-600 font-mono text-lg">Mustafa</span></h3>, {
-      position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "colored",
-    }); 
-    console.log('=========================')
-  }, []); 
+function SignIn() {  
+  const {load, error } = useSelector((state) => state.user)
+  const dispatch =useDispatch()
+  // let navigate  = useNavigate()
+  // useEffect(() => {
+  //   toast.success( <h3> Welcome <span className=" font-serif">Back</span> <span className=" font-semibold text-indigo-600 font-mono text-lg">Mustafa</span></h3>, {
+  //     position: "top-center",
+  //     autoClose: 5000,
+  //     hideProgressBar: false,
+  //     closeOnClick: true,
+  //     pauseOnHover: true,
+  //     draggable: true,
+  //     progress: undefined,
+  //     theme: "colored",
+  //   }); 
+  //   console.log('=========================')
+  // }, []); 
   // handle input changes 
   const [formData, setFormData] = useState({
     email: "",
@@ -31,9 +38,34 @@ function SignIn() {
     });
   }; 
   // jandle form submit
-  const handleSubmit =(e) =>{
+  const handleSubmit = async (e) =>{
 
-    e.preventDefault()
+    e.preventDefault() 
+      try { 
+        dispatch(signInStart())
+      let response = await axios.post(
+        "http://localhost:3000/api/auth/login",
+        formData
+      );
+    console.log(response) 
+    if(response.statusText== "OK"){
+      dispatch(signInSuccess(response.data.user))
+      console.log(response.data)
+
+    }
+    } catch (e) { 
+      dispatch(signInFail("User Not Found"))
+      toast.error("User Not Register", {
+        position: "top-left",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
   }
   return (
     <>
@@ -58,7 +90,7 @@ function SignIn() {
         />
 
         <button className="w-full p-2 bg-slate-700 text-white rounded-md hover:bg-slate-600 focus:scale-95 transition-all">
-          Sign In
+        { load ? "Loading ...":  "Sign Up"}
         </button>
       </form>
       

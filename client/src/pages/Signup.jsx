@@ -33,7 +33,7 @@ const navigate = useNavigate();
       );
       console.log(response); 
       if(response.data.success ==false){
-        toast.error("User Already Exist", {
+        toast.error("User Already Found", {
           position: "top-left",
           autoClose: 3000,
           hideProgressBar: false,
@@ -48,7 +48,7 @@ navigate('/sign-in')
       }
     } catch (e) {
       console.log(e.message)
-      toast.error("User Already Exist", {
+      toast.error(e.message, {
         position: "top-left",
         autoClose: 3000,
         hideProgressBar: false,
